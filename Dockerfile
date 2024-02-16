@@ -6,7 +6,7 @@ RUN cargo build --release
 
 # Distroless runtime stage
 FROM gcr.io/distroless/cc-debian11
-COPY --from=build /app/target/release/rust-axum-greedy-coin-microservice /app/
+COPY --from=build /app/target/release/rust-axum-integer-roman-microservice /app/
 
 # Use non-root user
 USER nonroot:nonroot
@@ -19,4 +19,4 @@ WORKDIR $APP_HOME
 EXPOSE 3000
 
 # Run app
-ENTRYPOINT ["/app/rust-axum-greedy-coin-microservice"]
+ENTRYPOINT ["/app/rust-axum-integer-roman-microservice"]

@@ -1,39 +1,37 @@
-/* Greedy Coin Change Logic*/
+/* Integer to Roman Logic*/
 
-pub fn greedy_coin_change(amount: u32) -> Vec<u32> {
-    let mut coins = vec![1, 5, 10, 25];
-    coins.sort();
-    coins.reverse();
+pub fn int_to_roman(num: u32) -> String {
+    let mut num = num;
+    let values = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1];
+    let symbols = ["M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"];
+    let mut result = String::new();
 
-    let mut change = vec![];
-    let mut remaining = amount;
-
-    for coin in coins {
-        while remaining >= coin {
-            remaining -= coin;
-            change.push(coin);
+    for (value, symbol) in values.iter().zip(symbols.iter()) {
+        while num >= *value {
+            num -= *value;
+            result.push_str(symbol);
         }
     }
 
-    change
+    result
 }
 
 //test
 #[cfg(test)]
 mod tests {
     use super::*;
+
     #[test]
-    fn test_greedy_coin_change() {
-        assert_eq!(greedy_coin_change(0), vec![]);
-        assert_eq!(greedy_coin_change(1), vec![1]);
-        assert_eq!(greedy_coin_change(5), vec![5]);
-        assert_eq!(greedy_coin_change(10), vec![10]);
-        assert_eq!(greedy_coin_change(25), vec![25]);
-        assert_eq!(greedy_coin_change(26), vec![25, 1]);
-        assert_eq!(greedy_coin_change(27), vec![25, 1, 1]);
-        assert_eq!(greedy_coin_change(28), vec![25, 1, 1, 1]);
-        assert_eq!(greedy_coin_change(29), vec![25, 1, 1, 1, 1]);
-        assert_eq!(greedy_coin_change(30), vec![25, 25]);
-        assert_eq!(greedy_coin_change(31), vec![25, 25, 1]);
+    fn test_int_to_roman() {
+        assert_eq!(int_to_roman(1), "I");
+        assert_eq!(int_to_roman(2), "II");
+        assert_eq!(int_to_roman(3), "III");
+        assert_eq!(int_to_roman(4), "IV");
+        assert_eq!(int_to_roman(5), "V");
+        assert_eq!(int_to_roman(9), "IX");
+        assert_eq!(int_to_roman(12), "XII");
+        assert_eq!(int_to_roman(16), "XVI");
+        assert_eq!(int_to_roman(58), "LVIII"); // L = 50, V= 5, III = 3
+        assert_eq!(int_to_roman(1994), "MCMXCIV"); // M = 1000, CM = 900, XC = 90 and IV = 4
     }
 }

@@ -496,7 +496,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "rust-axum-greedy-coin-microservice"
+name = "rust-axum-integer-roman-microservice"
 version = "0.1.0"
 dependencies = [
  "axum",
